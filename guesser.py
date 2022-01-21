@@ -56,8 +56,8 @@ words = ' '.join([f'"{w}"' for w in words])
 
 if __name__ == '__main__':
     found = guess(
-                forbiden='asnflehjuvig',
-                otherplace='_,r,_,_,_',
-                known='_,_,_,o,_',
+                forbiden='heatdnbs',
+                otherplace='_,_,_,_,_',
+                known='_,r,i,_,k',
             )
     print('Possible words: {}.'.format(', '.join(found)))
