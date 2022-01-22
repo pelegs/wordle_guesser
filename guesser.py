@@ -7,7 +7,7 @@ Use the guess function to get candidates for a
 wordle word (English words containing 5 letter).
 
 Arguments:
-    - forbiden: list of greyed-out letters.
+    - forbidden: list of greyed-out letters.
     - otherPlace: yellow letters separated by commas.
       put '_' where no hint is given
       (e.g. '_,s,_,t,_' means that 's' is not in 2nd place
@@ -15,12 +15,15 @@ Arguments:
     - known: green letters separated by commas.
       (e.g. 'r,_,_,_,t' means that 'r' is in the 1st place
        and 't' in the last place)
+
+If no arguments are given, the script returns a random word.
 """
 
 
 from string import ascii_lowercase as letters
 import re
 import argparse
+import random
 
 
 empty_known = [None]*5
@@ -34,13 +37,13 @@ def only_uses_letters_from(s1, s2):
     return set(s1) <= set(s2)
 
 
-def guess(forbiden=[], known=empty_known, otherPlace=[]):
+def guess(words='', forbidden=[], known=empty_known, otherPlace=[]):
     """
-    Returns possible words per given specifications.
+    Returns possible words per given specifications from given words list'
     """
     known = [c if c != '_' else None for c in known]
     otherPlace = [c if c != '_' else ' ' for c in otherPlace]
-    allowed = ''.join([c for c in letters if c not in forbiden])
+    allowed = ''.join([c for c in letters if c not in forbidden])
     rules = [c if c is not None else '[{}]'.format(allowed.replace(x, ''))
              for c, x in zip(known, otherPlace)]
     regex = f'{rules[0]}{rules[1]}{rules[2]}{rules[3]}{rules[4]}'
@@ -53,27 +56,33 @@ def guess(forbiden=[], known=empty_known, otherPlace=[]):
 # Arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('-w', '--wordsList', type=str,
-                    default='5_letters.txt', help='Words list file')
-parser.add_argument('-f', '--forbiden', type=str,
-                    default='', help='Forbidden letters')
+                    default='5_letters.txt', help='words list file')
+parser.add_argument('-f', '--forbidden', type=str,
+                    default='', help='forbidden letters')
 parser.add_argument('-o', '--otherPlace', type=str,
-                    default='_____', help='Letters that are in the word, '\
+                    default='_____', help='letters that are in the word, '\
                                      'but in a different place')
 parser.add_argument('-k', '--known', type=str,
-                    default='_____', help='Known letters')
+                    default='_____', help='known letters')
 args = parser.parse_args()
 
 
 # Words file
 with open(args.wordsList, 'r') as f:
-    words = [line.rstrip('\n') for line in f]
-words = ' '.join([f'"{w}"' for w in words])
+    wordsList = [line.rstrip('\n') for line in f]
+wordsStr = ' '.join([f'"{w}"' for w in wordsList])
 
 
 if __name__ == '__main__':
-    found = guess(
-                forbiden=args.forbiden,
-                otherPlace=args.otherPlace,
-                known=args.known,
-            )
-    print('Possible words: {}.'.format(', '.join(found)))
+    if (args.forbidden == ''
+        and args.otherPlace == '_____'
+        and args.known == '_____'):
+        print('Random word: {}.'.format(random.choice(wordsList)))
+    else:
+        found = guess(
+                    words=wordsStr,
+                    forbidden=args.forbidden,
+                    otherPlace=args.otherPlace,
+                    known=args.known,
+                )
+        print('Possible words: {}.'.format(', '.join(found)))
