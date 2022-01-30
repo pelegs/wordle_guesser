@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding: iso-8859-15 -*-
+# -*- coding: utf-8 -*-
 
 """
 Regex for the win! (not guaranteed)
@@ -20,13 +20,15 @@ If no arguments are given, the script returns a random word.
 """
 
 
-from string import ascii_lowercase as letters
+from string import ascii_lowercase as english_letters
 import re
 import argparse
 import random
 
 
 empty_known = [None]*5
+hebrew_letters = 'אבגדהוזחטיכלמנסעפצקרשת'
+
 
 def only_uses_letters_from(s1, s2):
     """
@@ -37,7 +39,8 @@ def only_uses_letters_from(s1, s2):
     return set(s1) <= set(s2)
 
 
-def guess(words='', forbidden=[], known=empty_known, otherPlace=[]):
+def guess(words='', letters='', forbidden=[],
+          known=empty_known, otherPlace=[]):
     """
     Returns possible words per given specifications from given words list'
     """
@@ -72,6 +75,9 @@ with open(args.wordsList, 'r') as f:
     wordsList = [line.rstrip('\n') for line in f]
 wordsStr = ' '.join([f'"{w}"' for w in wordsList])
 
+# Set letters via words file
+all_letters = ''.join(list(set(''.join(wordsList))))
+
 
 if __name__ == '__main__':
     if (args.forbidden == ''
@@ -81,6 +87,7 @@ if __name__ == '__main__':
     else:
         found = guess(
                     words=wordsStr,
+                    letters=all_letters,
                     forbidden=args.forbidden,
                     otherPlace=args.otherPlace,
                     known=args.known,
