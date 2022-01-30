@@ -20,14 +20,12 @@ If no arguments are given, the script returns a random word.
 """
 
 
-from string import ascii_lowercase as english_letters
 import re
 import argparse
 import random
 
 
 empty_known = [None]*5
-hebrew_letters = 'אבגדהוזחטיכלמנסעפצקרשת'
 
 
 def only_uses_letters_from(s1, s2):
@@ -59,7 +57,7 @@ def guess(words='', letters='', forbidden=[],
 # Arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('-w', '--wordsList', type=str,
-                    default='5_letters.txt', help='words list file')
+                    default='5_letters_en.txt', help='words list file')
 parser.add_argument('-f', '--forbidden', type=str,
                     default='', help='forbidden letters')
 parser.add_argument('-o', '--otherPlace', type=str,
