@@ -20,7 +20,7 @@ abort
 ```
 
 Arguments:  
-	- wordsList (-w): the file containing the list of words.  
+	- wordsList (-w): the file containing the list of words (default is English).  
 	- forbidden (-f): list of greyed-out letters.  
 	- otherPlace (-o): yellow letters separated by commas.  
 	  Put `_` where no hint is given (e.g. `_,s,_,t,_` means that `s` is not in 2nd place and `t` is not in 4th place)  
