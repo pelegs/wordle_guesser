@@ -23,8 +23,11 @@ Arguments:
 	- wordsList (-w): the file containing the list of words.  
 	- forbidden (-f): list of greyed-out letters.  
 	- otherPlace (-o): yellow letters separated by commas.  
-	  Put `\_` where no hint is given (e.g. `_,s,_,t,_` means that `s` is not in 2nd place and `t` is not in 4th place)  
+	  Put `_` where no hint is given (e.g. `_,s,_,t,_` means that `s` is not in 2nd place and `t` is not in 4th place)  
 	- known (-k): green letters separated by commas.  
 	  (e.g. `r,_,_,_,t` means that `r` is in the 1st place and `t` in the last place)  
 
 If no arguments are given, the script returns a random word.
+
+Example of using the script:
+![Example image English](https://github.com/pelegs/wordle_guesser/blob/master/example.png)
