@@ -58,7 +58,7 @@ def guess(words='', letters='', forbidden=[],
 # Arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('-w', '--wordsList', type=str,
-                    default='5_letters_en.txt', help='words list file')
+                    default='en.txt', help='words list file')
 parser.add_argument('-f', '--forbidden', type=str,
                     default='', help='forbidden letters')
 parser.add_argument('-o', '--otherPlace', type=str,
