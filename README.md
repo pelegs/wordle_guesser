@@ -1,9 +1,10 @@
 # Wordle guesser - regex for the win!
 #### (win not guaranteed)
 
-Use the guesser to get candidates for a [wordle](https://www.powerlanguage.co.uk/wordle/) word (words containing 5 letters exactly).
+Use the guesser to get candidates for a [wordle](https://www.powerlanguage.co.uk/wordle/) word (words containing 5 letters exactly).  
+The script works by elimination, implemented via a simple regex per position which uses the clues given by the user.  
 
-You can use a list of words from any phonetic language: the list file must have all the words, each in its own line. example:
+You can use a list of words from any phonetic language: the list file must have all the words, each in its own line. e.g.
 
 ```
 aback
@@ -31,8 +32,6 @@ Arguments:
 	   and a `t` in the last place)  
   
 If no arguments are given, the script returns a random word.  
-
-The script works by elimination, implemented via a simple regex per position.  
 
 Examples of using the script:  
 
