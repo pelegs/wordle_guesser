@@ -44,14 +44,20 @@ def guess(words='', letters='', forbidden=[],
     Returns possible words per given specifications from given words list'
     """
     known = known.split('|')
-#    otherPlace = [c if c != '_' else ' ' for c in otherPlace]
     otherPlace = otherPlace.split('|')
-    allowed = ''.join([c for c in letters if c not in forbidden])
-    rules = [c if c != '?' else '[{}]'.format(allowed.replace(x, ''))
-             for c, x in zip(known, otherPlace)]
-    regex = f'{rules[0]}{rules[1]}{rules[2]}{rules[3]}{rules[4]}'
+    allowed = ''.join(sorted([c for c in letters if c not in forbidden]))
+    rules = [''.join([c for c in allowed if c not in set(o)])
+             if a == '?' else a for a, o in zip(known, otherPlace)]
+    regex = f'{[rules[0]]}{[rules[1]]}{[rules[2]]}{[rules[3]]}{[rules[4]]}'
     found = re.findall(regex, words)
     exist = ''.join(set([x for x in otherPlace if x != '?']))
+
+    if args.verbose:
+        print('forbidden:', forbidden)
+        print('known:', known)
+        print('otherPlace:', otherPlace)
+        print('allowed:', allowed)
+        print('rules:', rules)
 
     return [f for f in found if only_uses_letters_from(exist, f)]
 
@@ -67,6 +73,8 @@ parser.add_argument('-o', '--otherPlace', type=str,
                                      'but in a different place')
 parser.add_argument('-k', '--known', type=str,
                     default='?|?|?|?|?', help='known letters')
+parser.add_argument('--verbose', dest='verbose', action='store_true',
+                    help='show all data')
 args = parser.parse_args()
 
 
