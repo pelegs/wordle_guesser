@@ -36,6 +36,6 @@ If no arguments are given, the script returns a random word.
 Examples of using the script:  
 
 ![Example image English 1](https://github.com/pelegs/wordle_guesser/blob/master/example1.png)
-![Example image English 3](https://github.com/pelegs/wordle_guesser/blob/master/example3.png)
+![Example image English 2](https://github.com/pelegs/wordle_guesser/blob/master/example2.png)
 ![Example image Hebrew](https://github.com/pelegs/wordle_guesser/blob/master/example_he.png)
 ![Example image Russian](https://github.com/pelegs/wordle_guesser/blob/master/example_ru.png)
