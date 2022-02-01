@@ -1,5 +1,5 @@
-# Regex for the win!
-###### (not guaranteed)
+# Wordle guesser - regex for the win!
+#### (win not guaranteed)
 
 Use the guesser to get candidates for a [wordle](https://www.powerlanguage.co.uk/wordle/) word (words containing 5 letters exactly).
 
@@ -32,6 +32,7 @@ Arguments:
   
 If no arguments are given, the script returns a random word.  
 
+The script works by elimination, implemented via a simple regex per position.  
 
 Examples of using the script:  
 
