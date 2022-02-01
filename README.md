@@ -22,13 +22,13 @@ abort
 Arguments:  
 	- wordsList (-w): the file containing the list of words  
 	- forbidden (-f): list of greyed-out letters  
-	- otherPlace (-o): yellow letters separated by '|'.  
-	  put '?' where no hint is given  
-	  (e.g. '?|s|?|t|?' means that 's' is not in 2nd place  
-	   and 't' is not in 4th place)  
-	- known (-k): green letters separated by '|'.  
-	  (e.g. 'r|?|?|?|t' means that there is an 'r' in the 1st place  
-	   and a 't' in the last place)  
+	- otherPlace (-o): yellow letters separated by `|`.  
+	  put `?` where no hint is given  
+	  (e.g. `?|s|?|t|?` means that `s` is not in 2nd place  
+	   and `t` is not in 4th place)  
+	- known (-k): green letters separated by `|`.  
+	  (e.g. `r|?|?|?|t` means that there is an `r` in the 1st place  
+	   and a `t` in the last place)  
   
 If no arguments are given, the script returns a random word.  
 
