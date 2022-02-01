@@ -7,15 +7,15 @@ Use the guess function to get candidates for a
 wordle word (English words containing 5 letter).
 
 Arguments:
-	- wordsList (-w): the file containing the list of words.
-	- forbidden (-f): list of greyed-out letters.
-	- otherPlace (-o): yellow letters separated by commas.
-	  put '_' where no hint is given
-	  (e.g. '_,s,_,t,_' means that 's' is not in 2nd place
+	- wordsList (-w): the file containing the list of words
+	- forbidden (-f): list of greyed-out letters
+	- otherPlace (-o): yellow letters separated by '|'.
+	  put '?' where no hint is given
+	  (e.g. '?|s|?|t|?' means that 's' is not in 2nd place
 	   and 't' is not in 4th place)
-	- known (-k): green letters separated by commas.
-	  (e.g. 'r,_,_,_,t' means that 'r' is in the 1st place
-	   and 't' in the last place)
+	- known (-k): green letters separated by '|'.
+	  (e.g. 'r|?|?|?|t' means that there is an 'r' in the 1st place
+	   and a 't' in the last place)
 
 If no arguments are given, the script returns a random word.
 """
@@ -43,14 +43,15 @@ def guess(words='', letters='', forbidden=[],
     """
     Returns possible words per given specifications from given words list'
     """
-    known = [c if c != '_' else None for c in known]
-    otherPlace = [c if c != '_' else ' ' for c in otherPlace]
+    known = known.split('|')
+#    otherPlace = [c if c != '_' else ' ' for c in otherPlace]
+    otherPlace = otherPlace.split('|')
     allowed = ''.join([c for c in letters if c not in forbidden])
-    rules = [c if c is not None else '[{}]'.format(allowed.replace(x, ''))
+    rules = [c if c != '?' else '[{}]'.format(allowed.replace(x, ''))
              for c, x in zip(known, otherPlace)]
     regex = f'{rules[0]}{rules[1]}{rules[2]}{rules[3]}{rules[4]}'
     found = re.findall(regex, words)
-    exist = ''.join(set([x for x in otherPlace if x != ' ']))
+    exist = ''.join(set([x for x in otherPlace if x != '?']))
 
     return [f for f in found if only_uses_letters_from(exist, f)]
 
@@ -62,10 +63,10 @@ parser.add_argument('-w', '--wordsList', type=str,
 parser.add_argument('-f', '--forbidden', type=str,
                     default='', help='forbidden letters')
 parser.add_argument('-o', '--otherPlace', type=str,
-                    default='_____', help='letters that are in the word, '\
+                    default='?|?|?|?|?', help='letters that are in the word, '\
                                      'but in a different place')
 parser.add_argument('-k', '--known', type=str,
-                    default='_____', help='known letters')
+                    default='?|?|?|?|?', help='known letters')
 args = parser.parse_args()
 
 
@@ -80,8 +81,8 @@ all_letters = ''.join(list(set(''.join(wordsList))))
 
 if __name__ == '__main__':
     if (args.forbidden == ''
-        and args.otherPlace == '_____'
-        and args.known == '_____'):
+        and args.otherPlace == '?|?|?|?|?'
+        and args.known == '?|?|?|?|?'):
         print('Random word: {}.'.format(random.choice(wordsList)))
     else:
         found = guess(
